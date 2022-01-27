@@ -2,12 +2,16 @@
 
 DIRECTION_TO_DEGREE = {'N': 0, 'NE': 45, 'E': 90, 'SE': 135, 'S': 180, 'SW': 225, 'W': 270, 'NW': 315}
 DEGREE_TO_DIRECTION = {v: k for k, v in DIRECTION_TO_DEGREE.items()}
-#DEGREE_TO_DIRECTION  = {0: 'N', 45: 'NE', 90: 'E', 135: 'SE', 180: 'S', 225: 'SW', 270: 'W', 315: 'NW'}
+#DEGREE_TO_DIRECTION = {0: 'N', 45: 'NE', 90: 'E', 135: 'SE', 180: 'S', 225: 'SW', 270: 'W', 315: 'NW'}
 
 
 def direction(facing, turn):
     if -1080 > turn or turn > 1080:
         raise ValueError('The parameter should be beetwen -1080 and 1080')
+    if turn % 45 != 0:
+        raise ValueError('This parameter must be a multiple of 45')
+    if facing not in DIRECTION_TO_DEGREE:
+        raise ValueError(f'The facing must be one of: {", ".join(DIRECTION_TO_DEGREE.keys())}')
 
     facing_new = (DIRECTION_TO_DEGREE[facing] + turn) % 360
 
